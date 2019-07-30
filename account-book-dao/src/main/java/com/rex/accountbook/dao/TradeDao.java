@@ -16,22 +16,17 @@ import java.time.LocalDate;
 @Table(name = "trade")
 public class TradeDao extends BaseDao {
 
-    // 帳戶
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "account_id", nullable = false)
     private AccountDao account;
-    // 費用
     @Column(nullable = false, scale = 2)
     private BigDecimal cost;
-    // 費用種類
-    @Column(length = 1)
+    @Column(length = 1, nullable = false)
     private String costType;
-    // 交易種類
-    @Column(length = 1)
+    @Column(length = 1, nullable = false)
     private String tradeType;
-    // 交易日
     @Column(nullable = false)
     private LocalDate tradeDate;
-    // 備註
     @Column(length = 30)
     private String note;
 
