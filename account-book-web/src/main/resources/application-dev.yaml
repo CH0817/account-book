@@ -1,0 +1,24 @@
+debug: true
+server:
+  port: 8081
+spring:
+  http:
+    log-request-details: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: rex
+    password: 1111
+    data: classpath*:data.sql
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: true
+        web-allow-others: true
+  thymeleaf:
+    cache: false
