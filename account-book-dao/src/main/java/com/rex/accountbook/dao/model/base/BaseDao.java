@@ -1,4 +1,4 @@
-package com.rex.accountbook.dao.base;
+package com.rex.accountbook.dao.model.base;
 
 import lombok.Getter;
 import lombok.Setter;

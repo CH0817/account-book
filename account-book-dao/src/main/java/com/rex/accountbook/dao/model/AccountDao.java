@@ -1,6 +1,6 @@
-package com.rex.accountbook.dao;
+package com.rex.accountbook.dao.model;
 
-import com.rex.accountbook.dao.base.BaseDao;
+import com.rex.accountbook.dao.model.base.BaseDao;
 import lombok.Getter;
 import lombok.Setter;
 
