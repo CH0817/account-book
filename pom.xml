@@ -78,7 +78,7 @@
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
                 <excludes>
-                    <exclude>**/application*.yaml</exclude>
+                    <exclude>**/application*.properties</exclude>
                     <exclude>db/data/test/*.sql</exclude>
                 </excludes>
             </resource>
@@ -86,8 +86,8 @@
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>**/application.yaml</include>
-                    <include>**/application-${profileActive}.yaml</include>
+                    <include>**/application.properties</include>
+                    <include>**/application-${profileActive}.properties</include>
                     <include>db/data/${profileActive}/*.sql</include>
                 </includes>
             </resource>
