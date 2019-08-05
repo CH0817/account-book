@@ -1,9 +1,11 @@
 package com.rex.accountbook.dao.repository;
 
+import com.rex.accountbook.dao.model.TradeDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -19,9 +21,10 @@ public class TradeDaoRepositoryTest {
     @Autowired
     private TradeDaoRepository repository;
 
-    @Test
-    public void save() {
+    @Test(expected = DataIntegrityViolationException.class)
+    public void saveWithNotFullData() {
         // do test
+        repository.save(new TradeDao());
     }
 
 }
