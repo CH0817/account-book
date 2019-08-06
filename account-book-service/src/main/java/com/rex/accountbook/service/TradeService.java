@@ -21,4 +21,7 @@ public class TradeService {
         return tradeDaoRepository.save(tradeDao);
     }
 
+    public void deleteById(long id) {
+        tradeDaoRepository.deleteById(id);
+    }
 }

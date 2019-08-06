@@ -25,9 +25,15 @@ public class TradeServiceTest extends BaseServiceTest {
         TradeDao dao = new TradeDao();
         TradeDao saveResult = new TradeDao();
         saveResult.setId(1L);
-        when(repository.save(any(TradeDao.class))).thenReturn(saveResult);
+        when(repository.save(dao)).thenReturn(saveResult);
         service.insert(dao);
-        verify(repository, atLeastOnce()).save(dao);
+        verify(repository, times(1)).save(dao);
+    }
+
+    @Test
+    public void deleteById() {
+        service.deleteById(1L);
+        verify(repository, times(1)).deleteById(1L);
     }
 
 }
