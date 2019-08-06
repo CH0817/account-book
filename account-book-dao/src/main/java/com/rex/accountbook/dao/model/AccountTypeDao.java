@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "account_type")
-public class AccountType extends BaseDao {
+public class AccountTypeDao extends BaseDao {
 
     @Column(length = 5, nullable = false, unique = true)
     private String name;

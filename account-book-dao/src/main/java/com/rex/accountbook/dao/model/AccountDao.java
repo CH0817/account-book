@@ -17,7 +17,7 @@ public class AccountDao extends BaseDao {
     private String name;
     @ManyToOne
     @JoinColumn(name = "type_id", nullable = false)
-    private AccountType type;
+    private AccountTypeDao type;
     @Column(nullable = false, scale = 2)
     private BigDecimal initAmount = BigDecimal.ZERO;
 
