@@ -20,11 +20,11 @@ public class TradeDao extends BaseDao {
     @Column(nullable = false, scale = 2)
     private BigDecimal cost;
     @ManyToOne
-    @JoinColumn(name = "cost_type_id", nullable = false)
-    private CostTypeDao costType;
-    @ManyToOne
     @JoinColumn(name = "trade_type_id", nullable = false)
     private TradeTypeDao tradeType;
+    @ManyToOne
+    @JoinColumn(name = "item_id", nullable = false)
+    private ItemDao item;
     @Column(nullable = false)
     private LocalDate tradeDate;
     @Column(length = 30)
