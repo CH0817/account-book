@@ -2,8 +2,7 @@ package com.rex.accountbook.dao.model.base;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.ToString;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +12,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+@ToString
 @MappedSuperclass
 public class BaseDao implements Serializable {
 
@@ -20,8 +20,4 @@ public class BaseDao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
 }
