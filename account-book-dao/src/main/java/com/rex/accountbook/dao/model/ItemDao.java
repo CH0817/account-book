@@ -12,10 +12,10 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Entity
-@Table(name = "item", indexes = {@Index(name = "trade_cost_type", columnList = "trade_type_id,name")})
+@Table(name = "item", indexes = {@Index(name = "trade_cost_type", columnList = "trade_type,name")})
 public class ItemDao extends BaseDao {
 
-    @Column(length = 1, nullable = false)
+    @Column(name = "trade_type", length = 1, nullable = false)
     private String tradeType;
     @Column(length = 10, nullable = false)
     private String name;

@@ -17,8 +17,6 @@ public class TradeDaoRepositoryTest extends BaseRepositoryTest {
     private ItemDaoRepository itemDaoRepository;
     @Autowired
     private TradeDaoRepository tradeDaoRepository;
-    @Autowired
-    private TradeTypeDaoRepository tradeTypeDaoRepository;
 
     @Test
     public void save() {
