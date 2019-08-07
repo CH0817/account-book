@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -34,6 +36,13 @@ public class TradeServiceTest extends BaseServiceTest {
     public void deleteById() {
         service.deleteById(1L);
         verify(repository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void findById() throws Exception {
+        when(repository.findById(1L)).thenReturn(Optional.of(new TradeDao()));
+        service.findById(1L);
+        verify(repository, times(1)).findById(1L);
     }
 
 }
