@@ -32,4 +32,9 @@ public class TradeController {
         return service.updateById(input);
     }
 
+    @GetMapping("/{id}")
+    public TradeDao findById(@PathVariable Long id) throws Exception {
+        return service.findById(id);
+    }
+
 }

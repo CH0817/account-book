@@ -17,6 +17,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -45,15 +46,15 @@ public class TradeControllerTest extends BaseControllerTest {
         entity.setItem(item);
         mvc.perform(post("/trade/save")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(object2Json(entity)))//
-           .andExpect(status().isOk())
-           .andExpect(jsonPath("$.id").exists());
+                .content(object2Json(entity)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists());
     }
 
     @Test
     public void deleteById() throws Exception {
         mvc.perform(delete("/trade/delete/{id}", 1L))
-           .andExpect(status().isOk());
+                .andExpect(status().isOk());
         assertFalse(repository.findById(1L).isPresent());
     }
 
@@ -72,7 +73,7 @@ public class TradeControllerTest extends BaseControllerTest {
         entity.setItem(item);
 
         mvc.perform(put("/trade").contentType(MediaType.APPLICATION_JSON_UTF8).content(object2Json(entity)))
-           .andExpect(status().isOk());
+                .andExpect(status().isOk());
 
         Optional<TradeDao> daoOptional = repository.findById(2L);
         assertTrue(daoOptional.isPresent());
@@ -85,12 +86,24 @@ public class TradeControllerTest extends BaseControllerTest {
         });
     }
 
+    @Test
+    public void findById() throws Exception {
+        mvc.perform(get("/trade/{id}", 2L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(2L))
+                .andExpect(jsonPath("$.note").value("test"))
+                .andExpect(jsonPath("$.cost").value(new BigDecimal(200).setScale(2, BigDecimal.ROUND_HALF_UP)))
+                .andExpect(jsonPath("$.tradeDate").value(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))))
+                .andExpect(jsonPath("$.account.id").value(2L))
+                .andExpect(jsonPath("$.item.id").value(2L));
+    }
+
     private String object2Json(Object object) {
         String result = "";
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new ParameterNamesModule())
-              .registerModule(new Jdk8Module())
-              .registerModule(new JavaTimeModule());
+                .registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());
         try {
             result = mapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
