@@ -1,15 +1,11 @@
 package com.rex.accountbook.web.restful;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.rex.accountbook.dao.model.AccountDao;
 import com.rex.accountbook.dao.model.ItemDao;
 import com.rex.accountbook.dao.model.TradeDao;
 import com.rex.accountbook.dao.repository.TradeDaoRepository;
 import com.rex.accountbook.web.base.BaseControllerTest;
+import com.rex.accountbook.web.util.JsonUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -46,7 +42,7 @@ public class TradeControllerTest extends BaseControllerTest {
         entity.setItem(item);
         mvc.perform(post("/trade/save")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(object2Json(entity)))
+                .content(JsonUtils.object2Json(entity)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists());
     }
@@ -72,7 +68,7 @@ public class TradeControllerTest extends BaseControllerTest {
         item.setId(2L);
         entity.setItem(item);
 
-        mvc.perform(put("/trade").contentType(MediaType.APPLICATION_JSON_UTF8).content(object2Json(entity)))
+        mvc.perform(put("/trade").contentType(MediaType.APPLICATION_JSON_UTF8).content(JsonUtils.object2Json(entity)))
                 .andExpect(status().isOk());
 
         Optional<TradeDao> daoOptional = repository.findById(2L);
@@ -96,20 +92,6 @@ public class TradeControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("$.tradeDate").value(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))))
                 .andExpect(jsonPath("$.account.id").value(2L))
                 .andExpect(jsonPath("$.item.id").value(2L));
-    }
-
-    private String object2Json(Object object) {
-        String result = "";
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new ParameterNamesModule())
-                .registerModule(new Jdk8Module())
-                .registerModule(new JavaTimeModule());
-        try {
-            result = mapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return result;
     }
 
 }
