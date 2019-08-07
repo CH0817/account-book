@@ -3,10 +3,7 @@ package com.rex.accountbook.web.restful;
 import com.rex.accountbook.dao.model.TradeDao;
 import com.rex.accountbook.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/trade")
@@ -22,6 +19,11 @@ public class TradeController {
     @PostMapping("/save")
     public TradeDao save(@RequestBody TradeDao input) throws Exception {
         return service.insert(input);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable Long id) {
+        service.deleteById(id);
     }
 
 }

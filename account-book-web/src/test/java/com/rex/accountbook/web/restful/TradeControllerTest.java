@@ -8,16 +8,18 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.rex.accountbook.dao.model.AccountDao;
 import com.rex.accountbook.dao.model.ItemDao;
 import com.rex.accountbook.dao.model.TradeDao;
+import com.rex.accountbook.dao.repository.TradeDaoRepository;
 import com.rex.accountbook.web.base.BaseControllerTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static org.junit.Assert.assertFalse;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class TradeControllerTest extends BaseControllerTest {
 
     @Autowired
-    private MockMvc mvc;
+    private TradeDaoRepository repository;
 
     @Test
     public void save() throws Exception {
@@ -46,6 +48,13 @@ public class TradeControllerTest extends BaseControllerTest {
                 .content(object2Json(entity)))//
            .andExpect(status().isOk())
            .andExpect(jsonPath("$.id").exists());
+    }
+
+    @Test
+    public void deleteById() throws Exception {
+        mvc.perform(delete("/trade/delete/{id}", 1L))
+           .andExpect(status().isOk());
+        assertFalse(repository.findById(1L).isPresent());
     }
 
     private String object2Json(Object object) {
