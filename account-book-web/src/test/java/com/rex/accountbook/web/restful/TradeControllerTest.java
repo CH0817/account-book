@@ -14,9 +14,8 @@ import org.springframework.test.context.jdbc.Sql;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -69,17 +68,13 @@ public class TradeControllerTest extends BaseControllerTest {
         entity.setItem(item);
 
         mvc.perform(put("/trade").contentType(MediaType.APPLICATION_JSON_UTF8).content(JsonUtils.object2Json(entity)))
-                .andExpect(status().isOk());
-
-        Optional<TradeDao> daoOptional = repository.findById(2L);
-        assertTrue(daoOptional.isPresent());
-        daoOptional.ifPresent(dao -> {
-            assertEquals("note not equals", "controller test", dao.getNote());
-            assertEquals("cost not equals", new BigDecimal(999).setScale(2, BigDecimal.ROUND_HALF_DOWN), dao.getCost());
-            assertEquals("trade date not equals", LocalDate.now().plusDays(3), dao.getTradeDate());
-            assertEquals("account not equals", 3L, dao.getAccount().getId().longValue());
-            assertEquals("item not equals", 2L, dao.getItem().getId().longValue());
-        });
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(2L))
+                .andExpect(jsonPath("$.note").value("controller test"))
+                .andExpect(jsonPath("$.cost").value("999.00"))
+                .andExpect(jsonPath("$.tradeDate").value(LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))))
+                .andExpect(jsonPath("$.account.id").value(3L))
+                .andExpect(jsonPath("$.item.id").value(2L));
     }
 
     @Test
