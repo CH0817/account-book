@@ -19,8 +19,6 @@ public class TradeDao extends BaseDao {
     private AccountDao account;
     @Column(nullable = false, scale = 2)
     private BigDecimal cost;
-    @Column(length = 1, nullable = false)
-    private String tradeType;
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
     private ItemDao item;

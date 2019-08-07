@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 
 // 測試資料
-@Sql({"classpath:data/account_type.sql", "classpath:data/account.sql", "classpath:data/trade_type.sql", "classpath:data/item.sql"})
+@Sql({"classpath:data/account_type.sql", "classpath:data/account.sql", "classpath:data/item.sql", "classpath:data/trade.sql"})
 public class TradeDaoRepositoryTest extends BaseRepositoryTest {
 
     @Autowired
