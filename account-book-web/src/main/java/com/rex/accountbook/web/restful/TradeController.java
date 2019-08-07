@@ -26,4 +26,10 @@ public class TradeController {
         service.deleteById(id);
     }
 
+    @PutMapping
+    public TradeDao updateById(@RequestBody TradeDao input) throws Exception {
+        service.updateById(input);
+        return service.updateById(input);
+    }
+
 }

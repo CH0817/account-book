@@ -17,10 +17,10 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
-import static org.junit.Assert.assertFalse;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -55,6 +55,34 @@ public class TradeControllerTest extends BaseControllerTest {
         mvc.perform(delete("/trade/delete/{id}", 1L))
            .andExpect(status().isOk());
         assertFalse(repository.findById(1L).isPresent());
+    }
+
+    @Test
+    public void updateById() throws Exception {
+        TradeDao entity = new TradeDao();
+        entity.setId(2L);
+        entity.setNote("controller test");
+        entity.setCost(new BigDecimal(999));
+        entity.setTradeDate(LocalDate.now().plusDays(3L));
+        AccountDao account = new AccountDao();
+        account.setId(3L);
+        entity.setAccount(account);
+        ItemDao item = new ItemDao();
+        item.setId(2L);
+        entity.setItem(item);
+
+        mvc.perform(put("/trade").contentType(MediaType.APPLICATION_JSON_UTF8).content(object2Json(entity)))
+           .andExpect(status().isOk());
+
+        Optional<TradeDao> daoOptional = repository.findById(2L);
+        assertTrue(daoOptional.isPresent());
+        daoOptional.ifPresent(dao -> {
+            assertEquals("note not equals", "controller test", dao.getNote());
+            assertEquals("cost not equals", new BigDecimal(999).setScale(2, BigDecimal.ROUND_HALF_DOWN), dao.getCost());
+            assertEquals("trade date not equals", LocalDate.now().plusDays(3), dao.getTradeDate());
+            assertEquals("account not equals", 3L, dao.getAccount().getId().longValue());
+            assertEquals("item not equals", 2L, dao.getItem().getId().longValue());
+        });
     }
 
     private String object2Json(Object object) {
