@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -43,6 +44,15 @@ public class TradeServiceTest extends BaseServiceTest {
         when(repository.findById(1L)).thenReturn(Optional.of(new TradeDao()));
         service.findById(1L);
         verify(repository, times(1)).findById(1L);
+    }
+
+    @Test
+    public void updateById() throws Exception {
+        when(repository.findById(anyLong())).thenReturn(Optional.of(new TradeDao()));
+        TradeDao entity = new TradeDao();
+        entity.setId(1L);
+        service.updateById(entity);
+        verify(repository, times(1)).saveAndFlush(any(TradeDao.class));
     }
 
 }
