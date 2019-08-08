@@ -39,7 +39,7 @@ public class TradeControllerTest extends BaseControllerTest {
         ItemDao item = new ItemDao();
         item.setId(1L);
         entity.setItem(item);
-        mvc.perform(post("/trade/save")
+        mvc.perform(post("/trades")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(JsonUtils.object2Json(entity)))
                 .andExpect(status().isOk())
@@ -48,7 +48,7 @@ public class TradeControllerTest extends BaseControllerTest {
 
     @Test
     public void deleteById() throws Exception {
-        mvc.perform(delete("/trade/delete/{id}", 1L))
+        mvc.perform(delete("/trades/{id}", 1L))
                 .andExpect(status().isOk());
         assertFalse(repository.findById(1L).isPresent());
     }
@@ -67,7 +67,7 @@ public class TradeControllerTest extends BaseControllerTest {
         item.setId(2L);
         entity.setItem(item);
 
-        mvc.perform(put("/trade").contentType(MediaType.APPLICATION_JSON_UTF8).content(JsonUtils.object2Json(entity)))
+        mvc.perform(put("/trades").contentType(MediaType.APPLICATION_JSON_UTF8).content(JsonUtils.object2Json(entity)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2L))
                 .andExpect(jsonPath("$.note").value("controller test"))
@@ -79,7 +79,7 @@ public class TradeControllerTest extends BaseControllerTest {
 
     @Test
     public void findById() throws Exception {
-        mvc.perform(get("/trade/{id}", 2L))
+        mvc.perform(get("/trades/{id}", 2L))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2L))
                 .andExpect(jsonPath("$.note").value("test"))

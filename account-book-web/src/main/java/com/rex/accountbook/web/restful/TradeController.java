@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/trade")
+@RequestMapping("/trades")
 public class TradeController {
 
     private TradeService service;
@@ -16,12 +16,12 @@ public class TradeController {
         this.service = service;
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public TradeDao save(@RequestBody TradeDao input) throws Exception {
         return service.insert(input);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
