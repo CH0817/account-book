@@ -19,4 +19,8 @@ public class AccountTypeService {
         return repository.save(entity);
     }
 
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
 }

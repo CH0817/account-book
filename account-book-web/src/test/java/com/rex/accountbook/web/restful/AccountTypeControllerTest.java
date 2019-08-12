@@ -7,7 +7,9 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,6 +26,13 @@ public class AccountTypeControllerTest extends BaseControllerTest {
                 .content(JsonUtils.object2Json(entity)))
                 .andExpect(status().isOk())//
                 .andExpect(jsonPath("$.id").isNotEmpty());
+    }
+
+    @Test
+    public void deleteById() throws Exception {
+        mvc.perform(delete("/account/types/{id}", 1L))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
 }
