@@ -21,4 +21,8 @@ public class AccountService {
         return repository.save(entity);
     }
 
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
 }

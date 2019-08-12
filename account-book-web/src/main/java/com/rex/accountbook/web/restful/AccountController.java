@@ -3,10 +3,7 @@ package com.rex.accountbook.web.restful;
 import com.rex.accountbook.dao.model.AccountDao;
 import com.rex.accountbook.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/accounts")
@@ -22,6 +19,11 @@ public class AccountController {
     @PostMapping
     public AccountDao save(@RequestBody AccountDao input) {
         return service.save(input);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id){
+        service.deleteById(id);
     }
 
 }

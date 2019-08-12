@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.math.BigDecimal;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -19,6 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 // 測試資料
 @Sql({"classpath:data/account_type.sql", "classpath:data/account.sql"})
 public class AccountControllerTest extends BaseControllerTest {
+
+    private final String DOMAIN = "/accounts";
 
     @Test
     public void save() throws Exception {
@@ -33,6 +36,13 @@ public class AccountControllerTest extends BaseControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNotEmpty());
+    }
+
+    @Test
+    public void deleteById() throws Exception {
+        mvc.perform(delete(DOMAIN + "/{id}", 1L))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     private MockHttpServletRequestBuilder getPostJsonRequest(String url, Object entity) {
