@@ -1,0 +1,2 @@
+insert into trade (id, cost, note, trade_date, account_id, item_id) select 1, 100, null, now(), account.id, item.id from account, item where account.name = '測試銀行' and item.name = '薪資';
+insert into trade (id, cost, note, trade_date, account_id, item_id) select 2, 200, 'test', now(), account.id, item.id from account, item where account.name = '測試現金' and item.name = '早餐';

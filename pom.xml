@@ -75,6 +75,12 @@
                 <profileActive>prod</profileActive>
             </properties>
         </profile>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <profileActive>docker</profileActive>
+            </properties>
+        </profile>
     </profiles>
 
     <build>

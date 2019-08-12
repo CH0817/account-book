@@ -16,6 +16,8 @@ import java.io.Serializable;
 @MappedSuperclass
 public class BaseDao implements Serializable {
 
+    private static final long serialVersionUID = -3564379691481284084L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

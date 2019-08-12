@@ -11,10 +11,10 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Entity
-@Table(name = "trade_type")
-public class TradeTypeDao extends BaseDao {
+@Table(name = "account_type")
+public class AccountTypeDao extends BaseDao {
 
-    @Column(length = 10, nullable = false, unique = true)
-    private String type;
+    @Column(length = 5, nullable = false, unique = true)
+    private String name;
 
 }
