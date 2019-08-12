@@ -27,7 +27,7 @@ public class AccountTypeService {
     }
 
     public AccountTypeDao updateById(AccountTypeDao entity) throws Exception {
-        AccountTypeDao dao = repository.findById(entity.getId()).orElseThrow(() -> new Exception("can not found id " + entity.getId()));
+        AccountTypeDao dao = findById(entity.getId());
         BeanUtils.copyProperties(entity, dao, "id");
         return repository.save(dao);
     }
