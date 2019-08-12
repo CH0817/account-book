@@ -22,8 +22,13 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id){
+    public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
+    }
+
+    @GetMapping("/{id}")
+    public AccountDao findById(@PathVariable Long id) throws Exception {
+        return service.findById(id);
     }
 
 }

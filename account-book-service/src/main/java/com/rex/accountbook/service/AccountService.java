@@ -25,4 +25,8 @@ public class AccountService {
         repository.deleteById(id);
     }
 
+    public AccountDao findById(Long id) throws Exception {
+        return repository.findById(id).orElseThrow(() -> new Exception("can not found id " + id));
+    }
+
 }

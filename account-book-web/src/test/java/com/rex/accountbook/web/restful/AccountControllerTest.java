@@ -11,8 +11,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.math.BigDecimal;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,6 +42,17 @@ public class AccountControllerTest extends BaseControllerTest {
         mvc.perform(delete(DOMAIN + "/{id}", 1L))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void findById() throws Exception {
+        mvc.perform(get(DOMAIN + "/{id}", 1L))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.initAmount").value(new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_UP)))
+                .andExpect(jsonPath("$.name").value("測試銀行"))
+                .andExpect(jsonPath("$.type.id").value(2L));
     }
 
     private MockHttpServletRequestBuilder getPostJsonRequest(String url, Object entity) {
