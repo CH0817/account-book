@@ -7,8 +7,7 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,6 +32,21 @@ public class AccountTypeControllerTest extends BaseControllerTest {
         mvc.perform(delete("/account/types/{id}", 1L))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void updateById() throws Exception {
+        AccountTypeDao entity = new AccountTypeDao();
+        entity.setId(1L);
+        entity.setName("TMD");
+
+        mvc.perform(put("/account/types")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(JsonUtils.object2Json(entity)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value("TMD"));
     }
 
 }

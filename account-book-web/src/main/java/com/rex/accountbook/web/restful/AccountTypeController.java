@@ -26,4 +26,9 @@ public class AccountTypeController {
         service.deleteById(id);
     }
 
+    @PutMapping
+    public AccountTypeDao updateById(@RequestBody AccountTypeDao input) throws Exception {
+        return service.updateById(input);
+    }
+
 }
