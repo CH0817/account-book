@@ -31,4 +31,9 @@ public class AccountTypeController {
         return service.updateById(input);
     }
 
+    @GetMapping("/{id}")
+    public AccountTypeDao findById(@PathVariable Long id) throws Exception {
+        return service.findById(id);
+    }
+
 }

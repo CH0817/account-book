@@ -32,4 +32,8 @@ public class AccountTypeService {
         return repository.save(dao);
     }
 
+    public AccountTypeDao findById(Long id) throws Exception {
+        return repository.findById(id).orElseThrow(() -> new Exception("can not found id " + id));
+    }
+
 }
