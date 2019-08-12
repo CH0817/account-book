@@ -31,4 +31,9 @@ public class AccountController {
         return service.findById(id);
     }
 
+    @PutMapping
+    public AccountDao updateById(@RequestBody AccountDao input) throws Exception {
+        return service.updateById(input);
+    }
+
 }

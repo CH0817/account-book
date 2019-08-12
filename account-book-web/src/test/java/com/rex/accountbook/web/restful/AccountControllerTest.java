@@ -55,6 +55,25 @@ public class AccountControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("$.type.id").value(2L));
     }
 
+    @Test
+    public void updateById() throws Exception {
+        AccountDao entity = new AccountDao();
+        entity.setId(1L);
+        AccountTypeDao type = new AccountTypeDao();
+        type.setId(1L);
+        entity.setType(type);
+        entity.setName("銀行測試");
+        entity.setInitAmount(new BigDecimal(100));
+
+        mvc.perform(put(DOMAIN).contentType(MediaType.APPLICATION_JSON_UTF8).content(JsonUtils.object2Json(entity)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.initAmount").value(new BigDecimal(100).setScale(2, BigDecimal.ROUND_HALF_UP)))
+                .andExpect(jsonPath("$.name").value("銀行測試"))
+                .andExpect(jsonPath("$.type.id").value(1L));
+    }
+
     private MockHttpServletRequestBuilder getPostJsonRequest(String url, Object entity) {
         return post(url)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
