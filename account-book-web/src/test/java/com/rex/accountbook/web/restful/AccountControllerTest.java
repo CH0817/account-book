@@ -32,7 +32,7 @@ public class AccountControllerTest extends BaseControllerTest {
         entity.setName("地下錢莊");
         entity.setInitAmount(new BigDecimal(100));
 
-        mvc.perform(getPostJsonRequest("/accounts", entity))
+        mvc.perform(getPostJsonRequest(DOMAIN, entity))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNotEmpty());
