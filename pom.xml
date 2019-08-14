@@ -30,6 +30,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>com.rex.accountbook.AccountBookApplication</start-class>
         <account-book-version>${project.version}</account-book-version>
+        <argLine>-Dfile.encoding=UTF-8</argLine>
     </properties>
 
     <modules>
