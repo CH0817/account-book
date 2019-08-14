@@ -1,5 +1,6 @@
 package com.rex.accountbook.dao.repository.base;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 // @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 // 載入測試 properties
 // @TestPropertySource("classpath:db-info.properties")
+@Ignore
 public class BaseRepositoryTest {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
