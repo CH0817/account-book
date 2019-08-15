@@ -12,4 +12,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests().anyRequest().permitAll();
     }
 
+    @Override
+    public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web) {
+        // 忽略 jquery-easyui-1.8.1 資料夾底下所有檔案驗證
+        web.ignoring().antMatchers("/webjars/**");
+    }
+
 }
