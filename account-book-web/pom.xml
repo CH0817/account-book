@@ -32,6 +32,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <!--EasyUI-->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>hirohe__jquery-easyui</artifactId>
+            <version>1.8.2-fix2</version>
+        </dependency>
     </dependencies>
 
 </project>
