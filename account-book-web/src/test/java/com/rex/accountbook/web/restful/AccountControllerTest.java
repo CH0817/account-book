@@ -6,6 +6,7 @@ import com.rex.accountbook.web.base.BaseControllerTest;
 import com.rex.accountbook.web.util.JsonUtils;
 import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
@@ -18,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 // 測試資料
 @Sql({"classpath:data/account_type.sql", "classpath:data/account.sql"})
+@WithMockUser
 public class AccountControllerTest extends BaseControllerTest {
 
     private final String DOMAIN = "/accounts";
