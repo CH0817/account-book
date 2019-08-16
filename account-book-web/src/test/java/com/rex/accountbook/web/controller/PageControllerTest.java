@@ -22,11 +22,11 @@ public class PageControllerTest {
     protected MockMvc mvc;
 
     @Test
-    public void index() throws Exception {
+    public void login() throws Exception {
         mvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"));
+                .andExpect(view().name("login"));
     }
 
 }

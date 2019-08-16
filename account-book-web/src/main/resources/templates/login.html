@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>登入</title>
+    <link rel="stylesheet" th:href="@{/webjars/hirohe__jquery-easyui/1.8.2-fix2/themes/bootstrap/easyui.css}">
+    <link rel="stylesheet" th:href="@{/webjars/hirohe__jquery-easyui/1.8.2-fix2/themes/icon.css}">
+    <script th:src="@{/webjars/hirohe__jquery-easyui/1.8.2-fix2/jquery.min.js}"></script>
+    <script th:src="@{/webjars/hirohe__jquery-easyui/1.8.2-fix2/jquery.easyui.min.js}"></script>
+</head>
+<body class="easyui-layout">
+<div class="easyui-dialog" title="登入" style="width:400px;height:180px;"
+     data-options="closable:false,draggable:false,resizable:false,modal:true,buttons:'#dialog-buttons'">
+    <!--action 必須與 loginPage() 參數對應，且必須使用 th:action-->
+    <form id="login-form" th:action="@{/login}" method="post">
+        <div style="display: table; margin: 0 auto; padding: 5px;">
+            <div style="display: table-row;">
+                <div style="display: table-cell;">
+                    <label for="email-ipt">Email</label>
+                </div>
+                <div style="display: table-cell">
+                    <input id="email-ipt" name="email" class="easyui-textbox" value="test@mail.com"
+                           style="width:300px"/>
+                </div>
+            </div>
+            <div style="display: table-row;">
+                <div style="display: table-cell">
+                    <label for="pwd-ipt" style="margin-right: 5px;">Password</label>
+                </div>
+                <div style="display: table-cell">
+                    <input id="pwd-ipt" name="pwd" class="easyui-passwordbox" value="1" style="width:300px"/>
+                </div>
+            </div>
+        </div>
+        <!--CSRF，可以不寫，Thymeleaf默認會補上-->
+        <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+    </form>
+    <div style="text-align: center; color: red;" th:if="${errorMessage != null}"
+         th:text="${errorMessage}">error message
+    </div>
+</div>
+<div id="dialog-buttons">
+    <a class="easyui-linkbutton" data-options="onClick:function(){$('#login-form').submit();}">登入</a>
+</div>
+</body>
+</html>
