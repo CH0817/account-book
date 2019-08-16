@@ -9,13 +9,23 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated();
+        // disable CSRF
+        http.csrf().disable();
+        // need has ROLE_USER
+        http.authorizeRequests()
+                .antMatchers("/accounts/**", "/account/types", "/items", "/trades/**")
+                .hasRole("USER")
+                .and();
+        // customer login page
         http.formLogin().loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("pwd")
                 .defaultSuccessUrl("/main")
                 .failureForwardUrl("/login?error=true")
-                .permitAll();
+                .permitAll()
+                .and();
+        // all requests need authorize
+        http.authorizeRequests().anyRequest().authenticated().and();
     }
 
     @Override
